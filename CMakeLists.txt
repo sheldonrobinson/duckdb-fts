@@ -6,10 +6,10 @@ project(FTSExtension)
 
 add_extension_definitions()
 
-include_directories(include ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/libstemmer)
+include_directories(${FTS_BASE_FOLDER}/include ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/libstemmer)
 set(FTS_SOURCES
-    fts_extension.cpp
-    fts_indexing.cpp
+    ${FTS_BASE_FOLDER}/fts_extension.cpp
+    ${FTS_BASE_FOLDER}/fts_indexing.cpp
     ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/libstemmer/libstemmer.cpp
     ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/runtime/utilities.cpp
     ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/runtime/api.cpp
