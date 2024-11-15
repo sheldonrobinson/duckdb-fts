@@ -7,6 +7,9 @@ require fts
 require no_alternative_verify
 
 statement ok
+PRAGMA explain_output = OPTIMIZED_ONLY
+
+statement ok
 CREATE TABLE documents(id VARCHAR, body VARCHAR)
 
 statement ok
