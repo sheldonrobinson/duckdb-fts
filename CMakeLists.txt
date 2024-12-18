@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 2.8.12...3.29)
-
-set(FTS_BASE_FOLDER "extension/fts")
+set(TARGET_NAME fts)
+set(EXTENSION_NAME ${TARGET_NAME}_extension)
+set(LOADABLE_EXTENSION_NAME ${TARGET_NAME}_loadable_extension)
 
 project(FTSExtension)
 
-add_extension_definitions()
-
-include_directories(${FTS_BASE_FOLDER}/include ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/libstemmer)
-set(FTS_SOURCES
-    ${FTS_BASE_FOLDER}/fts_extension.cpp
-    ${FTS_BASE_FOLDER}/fts_indexing.cpp
+set(EXTENSION_BASE_FOLDER "extension/fts")
+include_directories(${EXTENSION_BASE_FOLDER}/include ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/libstemmer)
+set(EXTENSION_SOURCES
+    ${EXTENSION_BASE_FOLDER}/fts_extension.cpp
+    ${EXTENSION_BASE_FOLDER}/fts_indexing.cpp
     ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/libstemmer/libstemmer.cpp
     ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/runtime/utilities.cpp
     ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/runtime/api.cpp
@@ -44,12 +44,12 @@ set(FTS_SOURCES
     ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/src_c/stem_UTF_8_tamil.cpp
     ${DUCKDB_MODULE_BASE_DIR}/third_party/snowball/src_c/stem_UTF_8_turkish.cpp)
 
-build_static_extension(fts ${FTS_SOURCES})
+build_static_extension(${TARGET_NAME} ${EXTENSION_SOURCES})
 set(PARAMETERS "-warnings")
-build_loadable_extension(fts ${PARAMETERS} ${FTS_SOURCES})
+build_loadable_extension(${TARGET_NAME} ${PARAMETERS} ${EXTENSION_SOURCES})
 
 install(
-  TARGETS fts_extension
+  TARGETS ${EXTENSION_NAME}
   EXPORT "${DUCKDB_EXPORT_SET}"
   LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
   ARCHIVE DESTINATION "${INSTALL_LIB_DIR}")
